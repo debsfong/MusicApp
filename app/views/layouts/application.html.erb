@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MusicApp</title>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+</head>
+
+<body>
+
+<nav class="main-nav"> <!-- what is this class for? -->
+  <div>
+    <% if current_user.nil? %>
+      <%= button_to "Sign In", new_session_url, method: :get%>
+      <%= button_to "Create an Account", new_user_url, method: :get %>
+    <% else %>
+      <%= button_to "Sign Out", session_url, method: :delete %>
+    <% end %>
+  </div>
+</nav>
+
+<% if flash[:errors] %>
+  <% flash[:errors].each do |message| %>
+    <%= message %>
+    <br>
+  <% end %>
+<% end %>
+
+<main>
+  <%= yield %>
+</main>
+
+</body>
+</br>
+<footer>
+  This is a Music App website!
+  <%= link_to "See All Bands", bands_url %>
+  <%= yield :footer %>
+</footer>
+
+</html>
